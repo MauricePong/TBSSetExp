@@ -1,0 +1,86 @@
+﻿开始生成时的环境:
+ALLUSERSPROFILE = C:\ProgramData
+APPDATA = C:\Users\PZW\AppData\Roaming
+CommonProgramFiles = C:\Program Files\Common Files
+COMPUTERNAME = PZW
+ComSpec = C:\WINDOWS\system32\cmd.exe
+DriverData = C:\Windows\System32\Drivers\DriverData
+FPS_BROWSER_APP_PROFILE_STRING = Internet Explorer
+FPS_BROWSER_USER_PROFILE_STRING = Default
+HOMEDRIVE = C:
+HOMEPATH = \Users\PZW
+LOCALAPPDATA = C:\Users\PZW\AppData\Local
+LOGONSERVER = \\PZW
+MOZ_PLUGIN_PATH = D:\Program Files\Foxit Software\Foxit Reader\plugins\
+MSBuildLoadMicrosoftTargetsReadOnly = true
+NUMBER_OF_PROCESSORS = 4
+OneDrive = C:\Users\PZW\OneDrive
+OS = Windows_NT
+Path = d:\program files\microsoft visual studio\preview\professional\common7\ide\commonextensions\microsoft\teamfoundation\team explorer\NativeBinaries\x86;D:\PROGRAM FILES\MICROSOFT VISUAL STUDIO\PREVIEW\PROFESSIONAL\COMMON7\IDE\EXTENSIONS\GITHUB\GITHUB\lib\win32\x86;C:\WINDOWS\system32;C:\WINDOWS;C:\WINDOWS\System32\Wbem;C:\WINDOWS\System32\WindowsPowerShell\v1.0\;D:\qt.10.0_mvs2017_x32_s\bin;D:\qt.10.0_mvs2017_x32_s\lib;C:\WINDOWS\System32\OpenSSH\;C:\Program Files\Microsoft Windows Performance Toolkit\;C:\Strawberry\c\bin;C:\Strawberry\perl\site\bin;C:\Strawberry\perl\bin;C:\Ruby25\bin;C:\Python27;C:\MinGW\bin;D:\Program Files\WinSCP\;C:\Program Files\Microsoft SQL Server\120\Tools\Binn\;C:\Program Files\Git\cmd;C:\Ruby25\bin;C:\Users\PZW\AppData\Local\Microsoft\WindowsApps;D:\Program Files\JieYuan\bin\pc-win64
+PATHEXT = .COM;.EXE;.BAT;.CMD;.VBS;.VBE;.JS;.JSE;.WSF;.WSH;.MSC;.RB;.RBW
+PkgDefApplicationConfigFile = C:\Users\PZW\AppData\Local\Microsoft\VisualStudio\15.0_4d5488b5\devenv.exe.config
+PROCESSOR_ARCHITECTURE = x86
+PROCESSOR_IDENTIFIER = x86 Family 6 Model 60 Stepping 3, GenuineIntel
+PROCESSOR_LEVEL = 6
+PROCESSOR_REVISION = 3c03
+ProgramData = C:\ProgramData
+ProgramFiles = C:\Program Files
+PSModulePath = C:\WINDOWS\system32\WindowsPowerShell\v1.0\Modules\;C:\Program Files\Intel\Wired Networking\
+PUBLIC = C:\Users\Public
+QtMsBuild = C:\Users\PZW\AppData\Local\QtMsBuild
+RUBYOPT = -Eutf-8
+SESSIONNAME = Console
+SystemDrive = C:
+SystemRoot = C:\WINDOWS
+TEMP = C:\Users\PZW\AppData\Local\Temp
+TMP = C:\Users\PZW\AppData\Local\Temp
+USERDOMAIN = PZW
+USERDOMAIN_ROAMINGPROFILE = PZW
+USERNAME = PZW
+USERPROFILE = C:\Users\PZW
+VisualStudioDir = C:\Users\PZW\Documents\Visual Studio 2017
+VisualStudioEdition = Microsoft Visual Studio Professional 2017
+VisualStudioVersion = 15.0
+VSAPPIDDIR = D:\Program Files\Microsoft Visual Studio\Preview\Professional\Common7\IDE\
+VSAPPIDNAME = devenv.exe
+VSLANG = 2052
+VSLS_SESSION_KEEPALIVE_INTERVAL = 0
+VSSKUEDITION = Professional
+windir = C:\WINDOWS
+
+
+项目性能摘要:
+      344 毫秒 C:\Users\PZW\Desktop\TBSSetExp\src\tbsui.vcxproj   1 次调用
+                344 毫秒 Clean                                      1 次调用
+
+目标性能摘要:
+        0 毫秒 Clean                                      1 次调用
+        0 毫秒 _PrepareForClean                           1 次调用
+        0 毫秒 BeforeClean                                1 次调用
+        0 毫秒 CppClean                                   1 次调用
+        0 毫秒 AfterCppClean                              1 次调用
+        0 毫秒 _SplitProjectReferencesByFileExistence     1 次调用
+        0 毫秒 BeforeCppClean                             1 次调用
+        0 毫秒 PrepareProjectReferences                   1 次调用
+        0 毫秒 AfterClean                                 1 次调用
+        0 毫秒 CleanPublishFolder                         1 次调用
+        1 毫秒 CleanReferencedProjects                    1 次调用
+        2 毫秒 PGInstrumentedClean                        1 次调用
+        7 毫秒 QtClean                                    1 次调用
+       10 毫秒 _GetProjectReferenceTargetFrameworkProperties   1 次调用
+       11 毫秒 AssignProjectConfiguration                 1 次调用
+       30 毫秒 CoreCppClean                               1 次调用
+       89 毫秒 CoreClean                                  1 次调用
+      142 毫秒 _CheckForInvalidConfigurationAndPlatform   1 次调用
+
+任务性能摘要:
+        1 毫秒 RemoveDuplicates                           1 次调用
+        2 毫秒 MakeDir                                    2 次调用
+        4 毫秒 ReadLinesFromFile                          1 次调用
+        5 毫秒 WriteLinesToFile                           2 次调用
+        5 毫秒 MSBuild                                    1 次调用
+        6 毫秒 AssignProjectConfiguration                 1 次调用
+       13 毫秒 CppClean                                   1 次调用
+       14 毫秒 FindUnderPath                              2 次调用
+       22 毫秒 Message                                    2 次调用
+       64 毫秒 Delete                                     5 次调用
