@@ -101,7 +101,7 @@ void TBShardware::start() {
       break;
 
     case TBS_RESET_FUNC:
-      ret = subcard_restart();
+      //ret = subcard_restart();
       if (0 == ret) {
         ret = 5;
       }
@@ -380,71 +380,63 @@ int TBShardware::readModulatorParm(void) {
   int i = 0;
   int ret = 0;
   int rfxbaseaddr = 0x0020;
-  int rfxofficeaddr = 0x0030;
+  int rfxofficeaddr = 0x0080;
   int devno = rwparm.devno;
   int rfxphyaddr = rfxbaseaddr + rfxofficeaddr * devno;
-  u8 rfxdata[0x29] = {0};
-  u8 mcudata[4] = {0};
-  int mcuaddr = 0xe0 + devno;
+  int mcusfaddr = 0x1c + devno;
+  u8 mcusfdata = 0;
+  u8 rfxdata[0x78] = {0};
 
-  memset(rfxdata, 0, 0x29);
+  memset(rfxdata, 0, 0x78);
   qDebug() << "select devno:" << rwparm.devno;
-  ret = controlExternalMemory(READ, rfxphyaddr, rfxdata, 0x29);
+  ret = controlExternalMemory(READ, rfxphyaddr, rfxdata, 0x78);
   if (-1 == ret) {
     return ret;
   }
-  QString qfreq = QString("%1%2%3%4%5%6%7")
-                      .arg((char)(rfxdata[0x00]))
-                      .arg((char)(rfxdata[0x01]))
-                      .arg((char)(rfxdata[0x02]))
-                      .arg((char)(rfxdata[0x03]))
-                      .arg((char)(rfxdata[0x04]))
-                      .arg((char)(rfxdata[0x05]))
-                      .arg((char)(rfxdata[0x06]));
-  if ('.' == (char)(rfxdata[0x04])) {
-    qfreq.append(QString((char)(rfxdata[0x07])));
+  for (int j = 0; j < CHNO; j++) {
+    QString qfreq = QString("%1%2%3%4%5%6%7")
+                        .arg((char)(rfxdata[0x00 + 0x20 * j]))
+                        .arg((char)(rfxdata[0x01 + 0x20 * j]))
+                        .arg((char)(rfxdata[0x02 + 0x20 * j]))
+                        .arg((char)(rfxdata[0x03 + 0x20 * j]))
+                        .arg((char)(rfxdata[0x04 + 0x20 * j]))
+                        .arg((char)(rfxdata[0x05 + 0x20 * j]))
+                        .arg((char)(rfxdata[0x06 + 0x20 * j]));
+    rwparm.fre[j] = qfreq;
+    qDebug() << "read fre:" << rwparm.fre[j]<<"["<<j<<"]";
+    TBSSWAP(rfxdata[0x07 + 0x20 * j], rfxdata[0x08 + 0x20 * j]);
+    rwparm.sym = *(u16 *)(&rfxdata[0x07]);
+    qDebug() << "read sym:" << rwparm.sym << "[" << j << "]";
+    rwparm.qam = rfxdata[0x09];
+    qDebug() << "read qam:" << rwparm.qam << "[" << j << "]";
+    rwparm.chesw[j] = rfxdata[0x0a + 0x20*j];
+    qDebug() << "read chesw:" << rwparm.chesw[j] << "[" << j << "]";
+    //QString qlevl = QString("%1%2%3%4")
+    //                    .arg((char)(rfxdata[0x15]))
+    //                    .arg((char)(rfxdata[0x16]))
+    //                    .arg((char)(rfxdata[0x17]))
+    //                    .arg((char)(rfxdata[0x18]));
+    //if ('.' == (char)(rfxdata[0x18])) {
+    //  qlevl.append(QString((char)(rfxdata[0x19])));
+    //}
+    QString qlevl = QString("%1").arg(rfxdata[0x0b+0x20*j]);
+    rwparm.lev[j] = qlevl;
+    qDebug() << "read level:" << rwparm.lev[j] << "[" << j << "]";
+    rwparm.mucastip[j] = QString("%1.%2.%3.%4")
+                             .arg(rfxdata[0x11 + 0x20 * j])
+                             .arg(rfxdata[0x12 + 0x20 * j])
+                             .arg(rfxdata[0x13 + 0x20 * j])
+                             .arg(rfxdata[0x14 + 0x20 * j]);
+    qDebug() << "read mucastip:" << rwparm.mucastip[j] << "[" << j << "]";
+    rwparm.protocol[j] = rfxdata[0x15 + 0x20 * j];
+    qDebug() << "read protocol:" << rwparm.protocol[j] << "[" << j << "]";
+    TBSSWAP(rfxdata[0x16 + 0x20 * j], rfxdata[0x17 + 0x20 * j]);
+    rwparm.tsport[j] = *(u16 *)(&rfxdata[0x16 + 0x20 * j]);
+    qDebug() << "read tsport:" << rwparm.tsport << "[" << j << "]";
   }
-
-  rwparm.fre = qfreq;
-  qDebug() << "read fre:" << rwparm.fre;
-  TBSSWAP(rfxdata[0x0d], rfxdata[0x0e]);
-  rwparm.sym = *(u16 *)(&rfxdata[0x0d]);
-  qDebug() << "read sym:" << rwparm.sym;
-  rwparm.qam = rfxdata[0x0f] & 0x0f;
-  qDebug() << "read qam:" << rwparm.qam;
-  u8 playeratedata[4] = {0};
-  for (i = 0; i < 4; i++) {
-    playeratedata[i] = rfxdata[0x13 - i];
-  }
-
-  rwparm.pla = QString("%1").arg(*(int *)(&playeratedata[0]));
-  qDebug() << "read playeratedata:" << rwparm.pla;
-  QString qlevl = QString("%1%2%3%4")
-                      .arg((char)(rfxdata[0x15]))
-                      .arg((char)(rfxdata[0x16]))
-                      .arg((char)(rfxdata[0x17]))
-                      .arg((char)(rfxdata[0x18]));
-  if ('.' == (char)(rfxdata[0x18])) {
-    qlevl.append(QString((char)(rfxdata[0x19])));
-  }
-  rwparm.lev = qlevl;
-  qDebug() << "read level:" << rwparm.lev;
-  rwparm.mucastip = QString("%1.%2.%3.%4")
-                        .arg(rfxdata[0x21])
-                        .arg(rfxdata[0x22])
-                        .arg(rfxdata[0x23])
-                        .arg(rfxdata[0x24]);
-  qDebug() << "read mucastip:" << rwparm.mucastip;
-  rwparm.protocol = rfxdata[0x25] & 0x01;
-  qDebug() << "read protocol:" << rwparm.protocol;
-  TBSSWAP(rfxdata[0x26], rfxdata[0x27]);
-  rwparm.tsport = *(u16 *)(&rfxdata[0x26]);
-  qDebug() << "read tsport:" << rwparm.tsport;
-  rwparm.isRst = rfxdata[0x28] & 0x01;
-  qDebug() << "read tsRst:" << rwparm.isRst;
-  ret = controlExternalMemory(READ, mcuaddr, mcudata, 1);
-  rwparm.ismcurst = mcudata[0];
-  qDebug() << "read mcuRst:" << rwparm.ismcurst;
+	ret = controlExternalMemory(READ, mcusfaddr, &mcusfdata, 1);
+  rwparm.softrst = mcusfdata;
+  qDebug() << "read  softrst:" << rwparm.softrst;
   return ret;
 }
 
@@ -514,72 +506,66 @@ int TBShardware::writeModulatorParm(void) {
   int i = 0;
   int ret = 0;
   int rfxbaseaddr = 0x0020;
-  int rfxofficeaddr = 0x0030;
+  int rfxofficeaddr = 0x0080;
   int devno = rwparm.devno;
   int rfxphyaddr = rfxbaseaddr + rfxofficeaddr * devno;
-  u8 rfxdata[0x29] = {0};
-  u8 mcudata[4] = {0};
-  int mcuaddr = 0xe0 + devno;
+  u8 rfxdata[0x78] = {0};
+  int mcusfaddr = 0x1c + devno;
+  u8 mcusfdata = 0;
 
-  memset(rfxdata, 0, 0x29);
+  memset(rfxdata, 0, 0x78);
   qDebug() << "select devno:" << rwparm.devno;
+  for (int j =0; j <CHNO;j++){
   // freq
-  QString qfreq = QString::number(rwparm.fre.toFloat(), 'f', 3);
-  qDebug() << "write freq:" << qfreq;
+  QString qfreq = QString::number(rwparm.fre[j].toFloat(), 'f', 3);
+  qDebug() << "write freq:" << qfreq << "[" << j << "]";
   for (i = 0; i < qfreq.length(); i++) {
-    rfxdata[0x00 + i] = (u8)(qfreq.at(i).toLatin1());
+    rfxdata[0x00 + i +0x20*j] = (u8)(qfreq.at(i).toLatin1());
   }
   // qam&&sym
-  rfxdata[0x0d] = ((rwparm.sym >> 8) & 0x0ff);
-  rfxdata[0x0e] = (rwparm.sym & 0x0ff);
-  qDebug() << "write sym:" << rwparm.sym;
-  rfxdata[0x0f] = rwparm.qam & 0xff;
-  qDebug() << "write qam:" << rwparm.qam;
-  // level
-  QString qlevel = QString::number(rwparm.lev.toFloat(), 'f', 1);
-  qDebug() << "write level:" << qlevel;
-  for (i = 0; i < qlevel.length(); i++) {
-    rfxdata[0x15 + i] = (u8)(qlevel.at(i).toLatin1());
-  }
+  rfxdata[0x07 + 0x20 * j] = ((rwparm.sym >> 8) & 0x0ff);
+  rfxdata[0x08 + 0x20 * j] = (rwparm.sym & 0x0ff);
+  qDebug() << "write sym:" << rwparm.sym << "[" << j << "]";
+  rfxdata[0x09 + 0x20 * j] = rwparm.qam & 0xff;
+  qDebug() << "write qam:" << rwparm.qam << "[" << j << "]";
+  rfxdata[0x0a + 0x20 * j] = rwparm.chesw[j] & 0xff;
+  qDebug() << "write chesw:" << rwparm.chesw[j] << "[" << j << "]";
 
-  // en&&multicast ip
-  for (i = 0; i < 4; i++) {
-    rfxdata[0x21 + i] =
-        (u8)(rwparm.mucastip.section('.', i, i).trimmed().toInt());
-  }
-  qDebug() << "write mucastip:" << rwparm.mucastip;
-  u8 qcastip[4] = {0};
-  for (i = 0; i < 4; i++) {
-    qcastip[i] = rfxdata[0x24 - i];
-  }
-  if (((*(u32 *)(&qcastip[0])) > 0xe00000ff) &&
-      ((*(u32 *)(&qcastip[0])) <= 0xefffffff)) {
-    rfxdata[0x20] = 1;
-  } else {
-    rfxdata[0x20] = 0;
-  }
-  qDebug() << "write mucastip en:" << rfxdata[0x20];
-  rfxdata[0x25] = (u8)(rwparm.protocol);
-  qDebug() << "write protocol:" << rfxdata[0x25];
-  rfxdata[0x26] = (u8)((rwparm.tsport >> 8) & 0x0ff);
-  rfxdata[0x27] = (u8)(rwparm.tsport & 0x0ff);
-  qDebug() << "write tsport:" << rwparm.tsport;
-  rfxdata[0x28] = (u8)(rwparm.isRst & 0x01);
-  qDebug() << "write isRst:" << rwparm.isRst;
-  ret = controlExternalMemory(WRITE, rfxphyaddr, rfxdata, 0x29);
-  if (-1 == ret) {
-    return ret;
-  }
-  mcudata[0] = (u8)(rwparm.ismcurst);
-  qDebug() << "write isRst:" << rwparm.ismcurst;
-  ret = controlExternalMemory(WRITE, mcuaddr, mcudata, 1);
-  if (-1 == ret) {
-    return ret;
-  }
-  // ret = mcurst();
-  // if (-1 == ret) {
-  //     return ret;
+  // level
+ //QString qlevel = QString::number(rwparm.lev.toFloat(), 'f', 1);
+ // qDebug() << "write level:" << qlevel << "[" << j << "]";
+  //for (i = 0; i < qlevel.length(); i++) {
+  //  rfxdata[0x15 + i] = (u8)(qlevel.at(i).toLatin1());
   //}
+  rfxdata[0x0b + 0x20 * j] = rwparm.lev[j].toInt();
+  qDebug() << "write level:" << rwparm.lev[j].toInt() << "[" << j << "]";
+  //multicast ip
+  for (i = 0; i < 4; i++) {
+    rfxdata[0x11 + i + 0x20 * j] =
+        (u8)(rwparm.mucastip[j].section('.', i, i).trimmed().toInt());
+  }
+  qDebug() << "write mucastip:" << rwparm.mucastip[j] << "[" << j << "]";
+  rfxdata[0x15 + 0x20 * j] = (u8)(rwparm.protocol[j]& 0x0ff);
+  qDebug() << "write protocol:" << rfxdata[0x15 + 0x20 * j] << "[" << j << "]";
+  rfxdata[0x16 + 0x20 * j] = (u8)((rwparm.tsport[j] >> 8) & 0x0ff);
+  rfxdata[0x17 + 0x20 * j] = (u8)(rwparm.tsport[j] & 0x0ff);
+  qDebug() << "write tsport:" << rwparm.tsport[j] << "[" << j << "]";
+	}
+  ret = controlExternalMemory(WRITE, rfxphyaddr, rfxdata, 0x78);
+  if (-1 == ret) {
+    return ret;
+  }
+	qDebug() << "write  softrst:" << rwparm.softrst;
+  mcusfdata = (u8)(rwparm.softrst);
+  ret = controlExternalMemory(WRITE, mcusfaddr, &mcusfdata, 1);
+  if (-1 == ret) {
+    return ret;
+  }
+  u8 dev = (u8)(rwparm.devno);
+  ret = subcard_restart(dev);
+   if (-1 == ret) {
+       return ret;
+  }
 
 #if 1
   ret = readModulatorParm();
@@ -639,7 +625,7 @@ int TBShardware::udpMulticastClinet(int manualip) {
   char recvbuf[64] = {'\0'};
   u8 tmp[2] = {0};
 
-  if (1 == manualip){
+  if (1 == manualip) {
     tbsmsg->devip = manual_ip.section(':', 0, 0).trimmed();
     tbsmsg->devport = manual_ip.section(':', 1, 1).trimmed().toInt();
     mudpfd = udpOpen(tbsmsg->devip, tbsmsg->devport);
@@ -845,80 +831,12 @@ void TBShardware::setWriteMode(int mode) { writemode = mode; }
 
 void TBShardware::setManual_ip(QString ip) { manual_ip = ip; }
 
-int TBShardware::checkStatus_RX(int times) {
-  int i = 0;
-  int ret = 0;
-  u8 checkstatus[2] = {0};
-
-  for (i = 0; i < times; i++) {
-    ret = readREG(REG64_BY_UDP_FUNC, 0x0040, 2, checkstatus);
-
-    if (ret < 0) {
-      return -1;
-    }
-
-    qDebug() << "checkStatus(0x0040):" << checkstatus[0];
-
-    if (1 == (checkstatus[0] & 0x01)) {
-      break;
-    } else {
-      QMSLEEP(100);
-    }
-  }
-
-  if (i == times) {
-    return -1;
-  }
-
-  return ret;
-}
-
-int TBShardware::checkStatus_TX(int times) {
-  int i = 0;
-  int ret = 0;
-  u8 checkstatus[2] = {0};
-
-  for (i = 0; i < times; i++) {
-    ret = readREG(REG64_BY_UDP_FUNC, 0x0038, 2, checkstatus);
-
-    if (ret < 0) {
-      return -1;
-    }
-
-    qDebug() << "checkStatus(0x0038):" << checkstatus[1];
-
-    if (0x1e == (checkstatus[1] & 0x1f)) {
-      break;
-    } else {
-      QMSLEEP(100);
-    }
-  }
-
-  if (i == times) {
-    return -1;
-  }
-
-  return ret;
-}
-
-int TBShardware::subcard_restart() {
+int TBShardware::subcard_restart( u8 devno) {
   u8 tmp[4] = {0xff, 0xff, 0xff, 0xff};
   int ret = 0;
-  u8 mcudata[4] = {0};
-  int mcuaddr = 0xe0;
-  int tunernum = 0;
-  ret = controlExternalMemory(READ, mcuaddr, mcudata, 4);
-  if (-1 == ret) {
-    return ret;
-  }
-  for (int i = 0; i < 4; i++) {
-    if (1 == mcudata[i]) {
-      ++tunernum;
-    }
-  }
-  tunernum = tunernum > rwparm.tunernum ? rwparm.tunernum : tunernum;
+  tmp[0] = devno;
   ret = controlExternalMemory(WRITE, 0xff08, tmp, 1);
-  int timecout = 10 + 15000 * tunernum;
+  int timecout = 15000;
   qDebug("subcard_restart time:%d ms", timecout);
   QMSLEEP(timecout);
   return ret;
@@ -927,24 +845,24 @@ int TBShardware::subcard_restart() {
 int TBShardware::mcu_poweroff() {
   u8 tmp[4] = {0xff, 0xff, 0xff, 0xff};
   int ret = 0;
-  u8 mcudata[4] = {0};
-  int mcuaddr = 0xe0;
-  int tunernum = 0;
-  ret = controlExternalMemory(READ, mcuaddr, mcudata, 4);
-  if (-1 == ret) {
-    return ret;
-  }
-  for (int i = 0; i < 4; i++) {
-    if (1 == mcudata[i]) {
-      ++tunernum;
-    }
-  }
-  tunernum = tunernum > rwparm.tunernum ? rwparm.tunernum : tunernum;
+  //u8 mcudata[4] = {0};
+  //int mcuaddr = 0xe0;
+  //int tunernum = 0;
+  //ret = controlExternalMemory(READ, mcuaddr, mcudata, 4);
+  //if (-1 == ret) {
+  //  return ret;
+  //}
+  //for (int i = 0; i < 4; i++) {
+  //  if (1 == mcudata[i]) {
+  //    ++tunernum;
+  //  }
+  //}
+ // tunernum = tunernum > rwparm.tunernum ? rwparm.tunernum : tunernum;
   ret = writeREG(REG64_BY_UDP_FUNC, 0x4014, 1, tmp);
   QMSLEEP(100);
   tmp[0] = 0;
   ret = writeREG(REG64_BY_UDP_FUNC, 0x4014, 1, tmp);
-  int timecout = 10+15000 * tunernum;
+  int timecout = 15000;
   qDebug("mcu poweroff time:%d ms", timecout);
   QMSLEEP(timecout);
   return ret;

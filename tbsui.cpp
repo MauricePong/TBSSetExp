@@ -213,7 +213,7 @@ void tbsui::initForm() {
   this->setStyleSheet(qss.join(""));
   //  connect(ui->tree_Dev, SIGNAL(itemClicked(QTreeWidgetItem*, int)), this,
   //  SLOT(showSelectedImage(QTreeWidgetItem*, int)));
-  QList<QCheckBox *> ches = ui->gbox_Tuners->findChildren<QCheckBox *>();
+  QList<QCheckBox *> ches = ui->tab_KidSetting->findChildren<QCheckBox *>();
 
   foreach (QCheckBox *che, ches) {
     che->setCheckable(true);
@@ -233,6 +233,31 @@ void tbsui::initForm() {
   com_IP_soltEN_flg = 0;
   uilock = 0;
   tbsrwparm.switchStatus = 0x0f;
+  lintsport[0] = ui->lin_TSPort_0;
+  lincastip[0] = ui->lin_CastIP_0;
+  linfre[0] = ui->lin_Fre_0;
+  linlev[0] = ui->lin_Lev_0;
+  comptl[0] = ui->com_Protocol_0;
+  chesw[0] = ui->che_sw_0;
+  lintsport[1] = ui->lin_TSPort_1;
+  lincastip[1] = ui->lin_CastIP_1;
+  linfre[1] = ui->lin_Fre_1;
+  linlev[1] = ui->lin_Lev_1;
+  comptl[1] = ui->com_Protocol_1;
+  chesw[1] = ui->che_sw_1;
+  lintsport[2] = ui->lin_TSPort_2;
+  lincastip[2] = ui->lin_CastIP_2;
+  linfre[2] = ui->lin_Fre_2;
+  linlev[2] = ui->lin_Lev_2;
+  comptl[2] = ui->com_Protocol_2;
+  chesw[2] = ui->che_sw_2;
+  lintsport[3] = ui->lin_TSPort_3;
+  lincastip[3] = ui->lin_CastIP_3;
+  linfre[3] = ui->lin_Fre_3;
+  linlev[3] = ui->lin_Lev_3;
+  comptl[3] = ui->com_Protocol_3;
+  chesw[3] = ui->che_sw_3;
+
   msgbox = NULL;
   msgbox = new TBSMesgDlg();
   tbshd = NULL;
@@ -296,31 +321,6 @@ void tbsui::on_btnMenu_Close_clicked() {
   close();
 }
 
-/**
-        void tbsui::on_btn_Reset_chlicked()
-        {
-        qDebug() << "2222222222222222222";
-        int  ipindex = ui->com_IP->currentIndex();
-        if (-1 == ipindex) {
-                return;
-        }
-        uiudpfd = tbshd->udpOpen(nettag[ipindex].ip, nettag[ipindex].port);
-        if (uiudpfd < 3) {
-                return;
-        }
-        else {
-                tbshd->setudpfd(uiudpfd);
-                tbshd->setRunMode(TBS_RESET_FUNC);
-                tbsrwparm.devno = devno;
-                tbshd->setHardWareParm(tbsrwparm);
-
-                m_Thread.quit();
-                m_Thread.wait();
-                m_Thread.start();
-        }
-        return;
-        }
-*/
 
 void tbsui::on_too_Refresh_clicked() {
   if (1 == uilock) {
@@ -362,10 +362,6 @@ void tbsui::on_too_Apply_clicked() {
 
   else {
     tbshd->setudpfd(uiudpfd);
-    tbsrwparm.tunernum = ui->che_t0->isEnabled();
-    tbsrwparm.tunernum += ui->che_t1->isEnabled();
-    tbsrwparm.tunernum += ui->che_t2->isEnabled();
-    tbsrwparm.tunernum += ui->che_t3->isEnabled();
     if (0 == index) {
       tbshd->setRunMode(TBS_WRITE_FUNC);
       tbshd->setWriteMode(WRITE_NET_PARM_FUNC);
@@ -382,56 +378,23 @@ void tbsui::on_too_Apply_clicked() {
 
     else if (1 == index) {
       if (0 == ((nettag[ipindex].switchStatus >> devno) & 0x01)) {
-        // check ui
-        int sym = ui->lin_Sym->text().toInt();  // 2000~7200
-        int tsport = ui->lin_TSPort->text().toInt();
-        float fre = ui->lin_Fre->text().toFloat();  // 100.000~1000.000
-        float lev = ui->lin_Lev->text().toFloat();  // 0.0~-35.0
-
-        if ((fre < 100.000) || (fre > 1000.000)) {
-          ui->lin_Fre->setStyleSheet("QLineEdit{border:1px solid red }");
-          return;
-        } else {
-          ui->lin_Fre->setStyleSheet(
-              "QLineEdit{border:1px solid gray border-radius:1px}");
-        }
-        if ((lev > 0.0) || (lev < -35.0)) {
-          ui->lin_Lev->setStyleSheet("QLineEdit{border:1px solid red }");
-          return;
-        } else {
-          ui->lin_Lev->setStyleSheet(
-              "QLineEdit{border:1px solid gray border-radius:1px}");
-        }
-        if ((sym < 2000) || (sym > 7200)) {
-          ui->lin_Sym->setStyleSheet("QLineEdit{border:1px solid red }");
-          return;
-        } else {
-          ui->lin_Sym->setStyleSheet(
-              "QLineEdit{border:1px solid gray border-radius:1px}");
-        }
-
-        if ((tsport < 0) || (tsport > 65536)) {
-          ui->lin_TSPort->setStyleSheet("QLineEdit{border:1px solid red }");
-          return;
-        }
-
-        else {
-          ui->lin_TSPort->setStyleSheet(
-              "QLineEdit{border:1px solid gray border-radius:1px}");
-        }
+        //ui->lin_TSPort->setStyleSheet("QLineEdit{border:1px solid red }");
 
         tbshd->setRunMode(TBS_WRITE_FUNC);
         tbshd->setWriteMode(WRITE_MODULATOR_PARM_FUNC);
         tbsrwparm.devno = devno;
-        tbsrwparm.protocol = (u8)(ui->com_Protocol->currentIndex());
+        for (int i = 0; i < CHNO; i++) {
+          tbsrwparm.protocol[i] = (u8)(comptl[i]->currentIndex());
+          tbsrwparm.fre[i] = linfre[i]->text();
+          tbsrwparm.lev[i] = linlev[i]->text();
+          tbsrwparm.tsport[i] = lintsport[i]->text().toInt();
+          tbsrwparm.mucastip[i] = lincastip[i]->text();
+          tbsrwparm.chesw[i] = chesw[i]->isChecked();
+        }
+
         tbsrwparm.qam = ui->com_Modulation->currentIndex();
         tbsrwparm.sym = ui->lin_Sym->text().toInt();
-        tbsrwparm.fre = ui->lin_Fre->text();
-        tbsrwparm.lev = ui->lin_Lev->text();
-        tbsrwparm.tsport = ui->lin_TSPort->text().toInt();
-        tbsrwparm.mucastip = ui->lin_CastIP->text();
-        tbsrwparm.isRst = ui->che_Rst->isChecked();
-        tbsrwparm.ismcurst = ui->che_mcurst->isChecked();
+        tbsrwparm.softrst = ui->che_Rst->isChecked();
         tbshd->setHardWareParm(tbsrwparm);
         m_Thread.quit();
         m_Thread.wait();
@@ -460,10 +423,6 @@ void tbsui::on_too_Reset_clicked() {
   } else {
     tbshd->setudpfd(uiudpfd);
     tbsrwparm.devno = devno;
-    tbsrwparm.tunernum = ui->che_t0->isEnabled();
-    tbsrwparm.tunernum += ui->che_t1->isEnabled();
-    tbsrwparm.tunernum += ui->che_t2->isEnabled();
-    tbsrwparm.tunernum += ui->che_t3->isEnabled();
     tbshd->setRunMode(TBS_RESET_FUNC);
     tbshd->setHardWareParm(tbsrwparm);
     m_Thread.quit();
@@ -489,10 +448,6 @@ void tbsui::on_too_Reboot_clicked() {
   } else {
     tbshd->setudpfd(uiudpfd);
     tbsrwparm.devno = devno;
-    tbsrwparm.tunernum = ui->che_t0->isEnabled();
-    tbsrwparm.tunernum += ui->che_t1->isEnabled();
-    tbsrwparm.tunernum += ui->che_t2->isEnabled();
-    tbsrwparm.tunernum += ui->che_t3->isEnabled();
     tbshd->setRunMode(TBS_RESTSRT_MCU_FUNC);
     tbshd->setHardWareParm(tbsrwparm);
     m_Thread.quit();
@@ -535,6 +490,13 @@ void tbsui::threadFinished() {
       << QString("%1->%2->%3").arg(__FILE__).arg(__LINE__).arg(__FUNCTION__);
 }
 
+int tbsui::get_random_number() {
+	qsrand(QTime(0, 0, 0).secsTo(QTime::currentTime()));
+  int a = qrand() % 9;  //随机生成0到9的随机数
+  //qDebug() << a;
+  return a;
+}
+
 void tbsui::soltsDisplayMsgUI(TBS_Msg_Type *msg) {
   if (NULL == msgbox) {
     return;
@@ -563,16 +525,18 @@ void tbsui::soltsDisplayMsgUI(TBS_Msg_Type *msg) {
         ui->lin_Lport->setText(QString("%1").arg(tbsrwparm.port));
         ui->Lin_Netmask->setText(tbsrwparm.Netmask);
         ui->lin_Gateway->setText(tbsrwparm.gateway);
-        ui->lin_Pla->setText(tbsrwparm.pla);
-        ui->lin_TSPort->setText(QString("%1").arg(tbsrwparm.tsport));
-        ui->lin_CastIP->setText(tbsrwparm.mucastip);
-        ui->lin_Fre->setText(tbsrwparm.fre);
-        ui->lin_Lev->setText(tbsrwparm.lev);
+
+				for (int i = 0; i < CHNO; i++) {
+          lintsport[i]->setText(QString("%1").arg(tbsrwparm.tsport[i]));
+          lincastip[i]->setText(tbsrwparm.mucastip[i]);
+          linfre[i]->setText(tbsrwparm.fre[i]);
+          linlev[i]->setText(tbsrwparm.lev[i]);
+          comptl[i]->setCurrentIndex(tbsrwparm.protocol[i]);
+          chesw[i]->setChecked(tbsrwparm.chesw[i]);
+        }
         ui->lin_Sym->setText(QString("%1").arg(tbsrwparm.sym));
         ui->com_Modulation->setCurrentIndex(tbsrwparm.qam);
-        ui->com_Protocol->setCurrentIndex(tbsrwparm.protocol);
-        ui->che_Rst->setChecked(tbsrwparm.isRst);
-        ui->che_mcurst->setChecked(tbsrwparm.ismcurst);
+        ui->che_Rst->setChecked(tbsrwparm.softrst);
       } else {
         int index = ui->tw_Set->currentIndex();
 
@@ -583,16 +547,17 @@ void tbsui::soltsDisplayMsgUI(TBS_Msg_Type *msg) {
           ui->Lin_Netmask->setText(tbsrwparm.Netmask);
           ui->lin_Gateway->setText(tbsrwparm.gateway);
         } else if (1 == index) {
-          ui->lin_Pla->setText(tbsrwparm.pla);
-          ui->lin_TSPort->setText(QString("%1").arg(tbsrwparm.tsport));
-          ui->lin_CastIP->setText(tbsrwparm.mucastip);
-          ui->lin_Fre->setText(tbsrwparm.fre);
+          for (int i = 0; i < CHNO; i++) {
+            lintsport[i]->setText(QString("%1").arg(tbsrwparm.tsport[i]));
+            lincastip[i]->setText(tbsrwparm.mucastip[i]);
+            linfre[i]->setText(tbsrwparm.fre[i]);
+            linlev[i]->setText(tbsrwparm.lev[i]);
+            comptl[i]->setCurrentIndex(tbsrwparm.protocol[i]);
+            chesw[i]->setChecked(tbsrwparm.chesw[i]);
+          }
           ui->lin_Sym->setText(QString("%1").arg(tbsrwparm.sym));
-          ui->lin_Lev->setText(tbsrwparm.lev);
           ui->com_Modulation->setCurrentIndex(tbsrwparm.qam);
-          ui->com_Protocol->setCurrentIndex(tbsrwparm.protocol);
-          ui->che_Rst->setChecked(tbsrwparm.isRst);
-          ui->che_mcurst->setChecked(tbsrwparm.ismcurst);
+          ui->che_Rst->setChecked(tbsrwparm.softrst);
         }
       }
     } else if ((0 == msg->isread) && (0 == msg->iserror)) {  // return write
@@ -614,16 +579,18 @@ void tbsui::soltsDisplayMsgUI(TBS_Msg_Type *msg) {
       } else if (1 == twindex) {
         tbsrwparm = tbshd->getHardWareParm();
         // add something
-        ui->lin_Pla->setText(tbsrwparm.pla);
-        ui->lin_TSPort->setText(QString("%1").arg(tbsrwparm.tsport));
-        ui->lin_CastIP->setText(tbsrwparm.mucastip);
-        ui->lin_Fre->setText(tbsrwparm.fre);
-        ui->lin_Lev->setText(tbsrwparm.lev);
+        for (int i = 0; i < CHNO; i++) {
+          lintsport[i]->setText(QString("%1").arg(tbsrwparm.tsport[i]));
+          lincastip[i]->setText(tbsrwparm.mucastip[i]);
+          linfre[i]->setText(tbsrwparm.fre[i]);
+          linlev[i]->setText(tbsrwparm.lev[i]);
+          comptl[i]->setCurrentIndex(tbsrwparm.protocol[i]);
+          chesw[i]->setChecked(tbsrwparm.chesw[i]);
+        }
         ui->lin_Sym->setText(QString("%1").arg(tbsrwparm.sym));
         ui->com_Modulation->setCurrentIndex(tbsrwparm.qam);
-        ui->com_Protocol->setCurrentIndex(tbsrwparm.protocol);
-        ui->che_Rst->setChecked(tbsrwparm.isRst);
-        ui->che_mcurst->setChecked(tbsrwparm.ismcurst);
+        ui->che_Rst->setChecked(tbsrwparm.softrst);
+
       }
     } else if ((2 == msg->isread) && (1 == msg->iserror)) {
       if (0 == com_IP_soltEN_flg) {
@@ -640,7 +607,7 @@ void tbsui::soltsDisplayMsgUI(TBS_Msg_Type *msg) {
     if ((0 == msg->btnL) && (0 == msg->btnR)) {
       uilock = 1;
 			msgbox->setModal(false);
-      msgbox->set_pbar_arg(20000,100000);
+      msgbox->set_pbar_arg(get_random_number()*2500, 100000);
       msgbox->timerstart(100);
       msgbox->show();
     } else {
@@ -659,8 +626,8 @@ void tbsui::soltsDisplayMsgUI(TBS_Msg_Type *msg) {
     if (0 == netnum) {
       ui->che_t0->setDisabled((msg->switchStatus >> 0) & 0x01);
       ui->che_t1->setDisabled((msg->switchStatus >> 1) & 0x01);
-      ui->che_t2->setDisabled((msg->switchStatus >> 2) & 0x01);
-      ui->che_t3->setDisabled((msg->switchStatus >> 3) & 0x01);
+     // ui->che_t2->setDisabled((msg->switchStatus >> 2) & 0x01);
+     // ui->che_t3->setDisabled((msg->switchStatus >> 3) & 0x01);
     }
 
     qDebug() << "netnum:" << netnum << msg->devip << msg->devport;
@@ -678,25 +645,30 @@ void tbsui::soltsDisplayMsgUI(TBS_Msg_Type *msg) {
 
 void tbsui::tunersCheckboxClick() {
   QCheckBox *c = (QCheckBox *)sender();
-  QList<QCheckBox *> ches = ui->gbox_Tuners->findChildren<QCheckBox *>();
+  if (c->text().indexOf(QString("Modulator")) < 0) {
+    return;
+  }
+  QList<QCheckBox *> ches = ui->tab_KidSetting->findChildren<QCheckBox *>();
 
   foreach (QCheckBox *ch, ches) {
     if (ch == c) {
       ch->setChecked(true);
     } else {
-      ch->setChecked(false);
+			if (ch->text().indexOf(QString("Modulator") )>= 0) {
+        ch->setChecked(false);
+			}
     }
   }
 
   QString name = c->text();
 
-  if (name == "Tuner 0") {
+  if (name == "Modulator 0") {
     devno = 0;
-  } else if (name == "Tuner 1") {
+  } else if (name == "Modulator 1") {
     devno = 1;
-  } else if (name == "Tuner 2") {
+  } else if (name == "Modulator 2") {
     devno = 2;
-  } else if (name == "Tuner 3") {
+  } else if (name == "Modulator 3") {
     devno = 3;
   }
 

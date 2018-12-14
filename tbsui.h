@@ -42,6 +42,16 @@ class tbsui : public QDialog {
   RD_WT_PARM tbsrwparm;
   NET_NODE nettag[16];
   int uilock;
+
+	//ui obj
+  QLineEdit *lintsport[CHNO];
+  QLineEdit *lincastip[CHNO];
+  QLineEdit *linfre[CHNO];
+  QLineEdit *linlev[CHNO];
+  QComboBox *comptl[CHNO];
+  QCheckBox *chesw[CHNO];
+
+	int get_random_number();
 #ifdef Q_OS_WIN  // windows
   SOCKET uiudpfd;
 #else
@@ -64,6 +74,7 @@ class tbsui : public QDialog {
   void on_too_Reboot_clicked();
   void slot_com_IP_currentIndexChanged(int idx);
   void on_che_Mip_stateChanged(int arg1);
+
 };
 
 #endif  //

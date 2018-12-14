@@ -71,7 +71,7 @@
     <ClCompile Include="tbsui.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include=".\tbsset_plugin_import.cpp">
+    <ClCompile Include=".\tbsset_x8_plugin_import.cpp">
       <Filter>Generated Files</Filter>
     </ClCompile>
   </ItemGroup>

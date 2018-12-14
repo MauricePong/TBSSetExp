@@ -37,9 +37,7 @@ class TBShardware : public QObject, public TBSbase {
   int getWriteMode();
   void setWriteMode(int mode);
   void setManual_ip(QString ip);
-  int checkStatus_RX(int times);
-  int checkStatus_TX(int times);
-  int subcard_restart();
+  int subcard_restart(u8 devno);
   int mcu_poweroff();
 #ifdef Q_OS_WIN
   // windows

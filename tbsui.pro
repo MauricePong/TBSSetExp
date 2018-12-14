@@ -9,7 +9,7 @@ QT       += network
 QT       += sql
 greaterThan(QT_MAJOR_VERSION, 4): QT += widgets
 
-TARGET      = TBSSET
+TARGET      = TBSSET_X8
 TEMPLATE    = app
 MOC_DIR     = temp/moc
 RCC_DIR     = temp/rcc

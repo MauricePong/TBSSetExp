@@ -19,6 +19,7 @@
 #include <QSqlQuery>
 #include <QThread>
 #include <QTreeWidgetItem>
+#include <QComboBox>
 #include "tbsmesgdlg.h"
 #ifdef Q_OS_WIN  // windows
 #include <atlbase.h>
@@ -103,6 +104,7 @@ typedef unsigned int u32;
 
 #define REG32MonopolizeCPU 1
 
+#define CHNO 4
 class RD_WT_PARM {
  public:
   u8 switchStatus;
@@ -113,18 +115,16 @@ class RD_WT_PARM {
   QString gateway;
   QString netmac;
   QString setnetmac;
-  u8 protocol;
-  int tsport;
+  u8 protocol[CHNO];
+  int tsport[CHNO];
   int devno;
   int qam;
   int sym;
-  QString pla;
-  QString fre;
-  QString lev;
-  QString mucastip;
-  int isRst;
-  int ismcurst;
-  int tunernum;
+  QString fre[CHNO];
+  QString lev[CHNO];
+  QString mucastip[CHNO];
+  int chesw[CHNO];
+  int softrst;
 };
 
 class TBS_Msg_Type {
