@@ -723,10 +723,10 @@ int TBShardware::udpMulticastClinet(int manualip) {
                               ((u8)(0xab) != (u8)(recvbuf[14])))) {
               continue;
       **/
-      qDebug("%02x %02x %d.%d.%d %d", (u8)recvbuf[4], (u8)recvbuf[5],
-             (u8)recvbuf[6], (u8)recvbuf[7], (u8)recvbuf[8], gatewaynum);
+      qDebug("%02x %02x %d.%d.%d.%d %d", (u8)recvbuf[4], (u8)recvbuf[5],
+             (u8)recvbuf[6], (u8)recvbuf[7], (u8)recvbuf[8], (u8)recvbuf[9], gatewaynum);
 
-      if (((u8)(0x82) != (u8)recvbuf[4]) && ((u8)(0x20) != (u8)recvbuf[5])) {
+      if (((u8)(0x82) != (u8)recvbuf[4]) ||((u8)(0x28) != (u8)recvbuf[5])) {
         continue;
       }
 
@@ -752,7 +752,7 @@ int TBShardware::udpMulticastClinet(int manualip) {
                           .arg((u8)recvbuf[8])
                           .arg((u8)recvbuf[9]);
       tbsmsg->devport = *(u16 *)(tmp);
-      qDebug() << tbsmsg->devip << tbsmsg->devport;
+      qDebug() << "success ip and port:"<<tbsmsg->devip << tbsmsg->devport;
       mudpfd = udpOpen(tbsmsg->devip, tbsmsg->devport);
 
       if (mudpfd < 3) {
