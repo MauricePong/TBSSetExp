@@ -499,6 +499,34 @@
                  <bool>false</bool>
                 </property>
                 <layout class="QGridLayout" name="gridLayout_3">
+                 <item row="12" column="1">
+                  <widget class="QLineEdit" name="lin_prate">
+                   <property name="readOnly">
+                    <bool>true</bool>
+                   </property>
+                  </widget>
+                 </item>
+                 <item row="12" column="0">
+                  <widget class="QLabel" name="label_7">
+                   <property name="text">
+                    <string>Playrate（bps）:</string>
+                   </property>
+                  </widget>
+                 </item>
+                 <item row="7" column="0">
+                  <widget class="QLabel" name="label_15">
+                   <property name="text">
+                    <string>TS Port:</string>
+                   </property>
+                  </widget>
+                 </item>
+                 <item row="11" column="1">
+                  <widget class="QLineEdit" name="lin_Sym">
+                   <property name="text">
+                    <string/>
+                   </property>
+                  </widget>
+                 </item>
                  <item row="8" column="2">
                   <widget class="QComboBox" name="com_Protocol_1">
                    <item>
@@ -545,6 +573,19 @@
                    </item>
                   </widget>
                  </item>
+                 <item row="10" column="0">
+                  <widget class="QLabel" name="label_5">
+                   <property name="sizePolicy">
+                    <sizepolicy hsizetype="Preferred" vsizetype="Fixed">
+                     <horstretch>0</horstretch>
+                     <verstretch>0</verstretch>
+                    </sizepolicy>
+                   </property>
+                   <property name="text">
+                    <string>Modulation:</string>
+                   </property>
+                  </widget>
+                 </item>
                  <item row="11" column="0">
                   <widget class="QLabel" name="label_6">
                    <property name="sizePolicy">
@@ -559,41 +600,12 @@ kbps):</string>
                    </property>
                   </widget>
                  </item>
-                 <item row="11" column="1">
-                  <widget class="QLineEdit" name="lin_Sym">
-                   <property name="text">
-                    <string/>
-                   </property>
-                  </widget>
-                 </item>
-                 <item row="7" column="2">
-                  <widget class="QLineEdit" name="lin_TSPort_1"/>
-                 </item>
-                 <item row="7" column="3">
-                  <widget class="QLineEdit" name="lin_TSPort_2"/>
-                 </item>
                  <item row="6" column="0">
                   <widget class="QLabel" name="label_17">
                    <property name="text">
                     <string>Multicast/unicast ip:</string>
                    </property>
                   </widget>
-                 </item>
-                 <item row="10" column="0">
-                  <widget class="QLabel" name="label_5">
-                   <property name="sizePolicy">
-                    <sizepolicy hsizetype="Preferred" vsizetype="Fixed">
-                     <horstretch>0</horstretch>
-                     <verstretch>0</verstretch>
-                    </sizepolicy>
-                   </property>
-                   <property name="text">
-                    <string>Modulation:</string>
-                   </property>
-                  </widget>
-                 </item>
-                 <item row="7" column="4">
-                  <widget class="QLineEdit" name="lin_TSPort_3"/>
                  </item>
                  <item row="1" column="0">
                   <widget class="QLabel" name="label_9">
@@ -608,31 +620,33 @@ kbps):</string>
                    </property>
                   </widget>
                  </item>
-                 <item row="6" column="4">
-                  <widget class="QLineEdit" name="lin_CastIP_3"/>
+                 <item row="7" column="2">
+                  <widget class="QLineEdit" name="lin_TSPort_1"/>
+                 </item>
+                 <item row="7" column="4">
+                  <widget class="QLineEdit" name="lin_TSPort_3"/>
+                 </item>
+                 <item row="7" column="3">
+                  <widget class="QLineEdit" name="lin_TSPort_2"/>
+                 </item>
+                 <item row="2" column="1">
+                  <widget class="QLineEdit" name="lin_Lev_0">
+                   <property name="text">
+                    <string/>
+                   </property>
+                   <property name="clearButtonEnabled">
+                    <bool>false</bool>
+                   </property>
+                  </widget>
                  </item>
                  <item row="2" column="2">
                   <widget class="QLineEdit" name="lin_Lev_1"/>
                  </item>
-                 <item row="7" column="0">
-                  <widget class="QLabel" name="label_15">
+                 <item row="7" column="1">
+                  <widget class="QLineEdit" name="lin_TSPort_0">
                    <property name="text">
-                    <string>TS Port:</string>
+                    <string/>
                    </property>
-                  </widget>
-                 </item>
-                 <item row="8" column="1">
-                  <widget class="QComboBox" name="com_Protocol_0">
-                   <item>
-                    <property name="text">
-                     <string>UDP</string>
-                    </property>
-                   </item>
-                   <item>
-                    <property name="text">
-                     <string>RTP</string>
-                    </property>
-                   </item>
                   </widget>
                  </item>
                  <item row="8" column="3">
@@ -649,23 +663,6 @@ kbps):</string>
                    </item>
                   </widget>
                  </item>
-                 <item row="2" column="1">
-                  <widget class="QLineEdit" name="lin_Lev_0">
-                   <property name="text">
-                    <string/>
-                   </property>
-                   <property name="clearButtonEnabled">
-                    <bool>false</bool>
-                   </property>
-                  </widget>
-                 </item>
-                 <item row="7" column="1">
-                  <widget class="QLineEdit" name="lin_TSPort_0">
-                   <property name="text">
-                    <string/>
-                   </property>
-                  </widget>
-                 </item>
                  <item row="8" column="4">
                   <widget class="QComboBox" name="com_Protocol_3">
                    <item>
@@ -680,21 +677,11 @@ kbps):</string>
                    </item>
                   </widget>
                  </item>
-                 <item row="2" column="0">
-                  <widget class="QLabel" name="label_8">
-                   <property name="sizePolicy">
-                    <sizepolicy hsizetype="Preferred" vsizetype="Fixed">
-                     <horstretch>0</horstretch>
-                     <verstretch>0</verstretch>
-                    </sizepolicy>
-                   </property>
-                   <property name="text">
-                    <string>Level (-35~0dBm):</string>
-                   </property>
-                  </widget>
+                 <item row="6" column="4">
+                  <widget class="QLineEdit" name="lin_CastIP_3"/>
                  </item>
-                 <item row="2" column="3">
-                  <widget class="QLineEdit" name="lin_Lev_2"/>
+                 <item row="6" column="2">
+                  <widget class="QLineEdit" name="lin_CastIP_1"/>
                  </item>
                  <item row="0" column="1">
                   <widget class="QCheckBox" name="che_sw_0">
@@ -703,35 +690,25 @@ kbps):</string>
                    </property>
                   </widget>
                  </item>
+                 <item row="2" column="3">
+                  <widget class="QLineEdit" name="lin_Lev_2"/>
+                 </item>
+                 <item row="8" column="1">
+                  <widget class="QComboBox" name="com_Protocol_0">
+                   <item>
+                    <property name="text">
+                     <string>UDP</string>
+                    </property>
+                   </item>
+                   <item>
+                    <property name="text">
+                     <string>RTP</string>
+                    </property>
+                   </item>
+                  </widget>
+                 </item>
                  <item row="6" column="3">
                   <widget class="QLineEdit" name="lin_CastIP_2"/>
-                 </item>
-                 <item row="6" column="2">
-                  <widget class="QLineEdit" name="lin_CastIP_1"/>
-                 </item>
-                 <item row="2" column="4">
-                  <widget class="QLineEdit" name="lin_Lev_3"/>
-                 </item>
-                 <item row="0" column="3">
-                  <widget class="QCheckBox" name="che_sw_2">
-                   <property name="text">
-                    <string>Channel 2</string>
-                   </property>
-                  </widget>
-                 </item>
-                 <item row="6" column="1">
-                  <widget class="QLineEdit" name="lin_CastIP_0">
-                   <property name="text">
-                    <string/>
-                   </property>
-                  </widget>
-                 </item>
-                 <item row="0" column="4">
-                  <widget class="QCheckBox" name="che_sw_3">
-                   <property name="text">
-                    <string>Channel 3</string>
-                   </property>
-                  </widget>
                  </item>
                  <item row="8" column="0">
                   <widget class="QLabel" name="label_16">
@@ -746,10 +723,71 @@ kbps):</string>
                    </property>
                   </widget>
                  </item>
+                 <item row="2" column="0">
+                  <widget class="QLabel" name="label_8">
+                   <property name="sizePolicy">
+                    <sizepolicy hsizetype="Preferred" vsizetype="Fixed">
+                     <horstretch>0</horstretch>
+                     <verstretch>0</verstretch>
+                    </sizepolicy>
+                   </property>
+                   <property name="text">
+                    <string>Gain (5~120):</string>
+                   </property>
+                  </widget>
+                 </item>
+                 <item row="6" column="1">
+                  <widget class="QLineEdit" name="lin_CastIP_0">
+                   <property name="text">
+                    <string/>
+                   </property>
+                  </widget>
+                 </item>
+                 <item row="2" column="4">
+                  <widget class="QLineEdit" name="lin_Lev_3"/>
+                 </item>
                  <item row="0" column="2">
                   <widget class="QCheckBox" name="che_sw_1">
                    <property name="text">
                     <string>Channel 1</string>
+                   </property>
+                  </widget>
+                 </item>
+                 <item row="1" column="3">
+                  <widget class="QLineEdit" name="lin_Fre_2">
+                   <property name="readOnly">
+                    <bool>true</bool>
+                   </property>
+                  </widget>
+                 </item>
+                 <item row="0" column="4">
+                  <widget class="QCheckBox" name="che_sw_3">
+                   <property name="text">
+                    <string>Channel 3</string>
+                   </property>
+                  </widget>
+                 </item>
+                 <item row="1" column="2">
+                  <widget class="QLineEdit" name="lin_Fre_1">
+                   <property name="readOnly">
+                    <bool>true</bool>
+                   </property>
+                  </widget>
+                 </item>
+                 <item row="1" column="1">
+                  <widget class="QLineEdit" name="lin_Fre_0"/>
+                 </item>
+                 <item row="0" column="3">
+                  <widget class="QCheckBox" name="che_sw_2">
+                   <property name="text">
+                    <string>Channel 2</string>
+                   </property>
+                  </widget>
+                 </item>
+                 <item row="13" column="0" colspan="3">
+                  <widget class="QCheckBox" name="che_Rst">
+                   <property name="text">
+                    <string>DVBC sub-module software restart</string>
                    </property>
                   </widget>
                  </item>
@@ -760,24 +798,12 @@ kbps):</string>
                    </property>
                   </widget>
                  </item>
-                 <item row="12" column="0" colspan="3">
-                  <widget class="QCheckBox" name="che_Rst">
-                   <property name="text">
-                    <string>DVBC sub-module software restart</string>
+                 <item row="1" column="4">
+                  <widget class="QLineEdit" name="lin_Fre_3">
+                   <property name="readOnly">
+                    <bool>true</bool>
                    </property>
                   </widget>
-                 </item>
-                 <item row="1" column="1">
-                  <widget class="QLineEdit" name="lin_Fre_0"/>
-                 </item>
-                 <item row="1" column="2">
-                  <widget class="QLineEdit" name="lin_Fre_1"/>
-                 </item>
-                 <item row="1" column="3">
-                  <widget class="QLineEdit" name="lin_Fre_2"/>
-                 </item>
-                 <item row="1" column="4">
-                  <widget class="QLineEdit" name="lin_Fre_3"/>
                  </item>
                 </layout>
                </widget>

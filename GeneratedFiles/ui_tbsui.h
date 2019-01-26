@@ -83,40 +83,42 @@ public:
     QCheckBox *che_t1;
     QGroupBox *groupBox_2;
     QGridLayout *gridLayout_3;
+    QLineEdit *lin_prate;
+    QLabel *label_7;
+    QLabel *label_15;
+    QLineEdit *lin_Sym;
     QComboBox *com_Protocol_1;
     QComboBox *com_Modulation;
-    QLabel *label_6;
-    QLineEdit *lin_Sym;
-    QLineEdit *lin_TSPort_1;
-    QLineEdit *lin_TSPort_2;
-    QLabel *label_17;
     QLabel *label_5;
-    QLineEdit *lin_TSPort_3;
+    QLabel *label_6;
+    QLabel *label_17;
     QLabel *label_9;
-    QLineEdit *lin_CastIP_3;
-    QLineEdit *lin_Lev_1;
-    QLabel *label_15;
-    QComboBox *com_Protocol_0;
-    QComboBox *com_Protocol_2;
+    QLineEdit *lin_TSPort_1;
+    QLineEdit *lin_TSPort_3;
+    QLineEdit *lin_TSPort_2;
     QLineEdit *lin_Lev_0;
+    QLineEdit *lin_Lev_1;
     QLineEdit *lin_TSPort_0;
+    QComboBox *com_Protocol_2;
     QComboBox *com_Protocol_3;
-    QLabel *label_8;
-    QLineEdit *lin_Lev_2;
-    QCheckBox *che_sw_0;
-    QLineEdit *lin_CastIP_2;
+    QLineEdit *lin_CastIP_3;
     QLineEdit *lin_CastIP_1;
-    QLineEdit *lin_Lev_3;
-    QCheckBox *che_sw_2;
-    QLineEdit *lin_CastIP_0;
-    QCheckBox *che_sw_3;
+    QCheckBox *che_sw_0;
+    QLineEdit *lin_Lev_2;
+    QComboBox *com_Protocol_0;
+    QLineEdit *lin_CastIP_2;
     QLabel *label_16;
+    QLabel *label_8;
+    QLineEdit *lin_CastIP_0;
+    QLineEdit *lin_Lev_3;
     QCheckBox *che_sw_1;
-    QLabel *label_10;
-    QCheckBox *che_Rst;
-    QLineEdit *lin_Fre_0;
-    QLineEdit *lin_Fre_1;
     QLineEdit *lin_Fre_2;
+    QCheckBox *che_sw_3;
+    QLineEdit *lin_Fre_1;
+    QLineEdit *lin_Fre_0;
+    QCheckBox *che_sw_2;
+    QCheckBox *che_Rst;
+    QLabel *label_10;
     QLineEdit *lin_Fre_3;
 
     void setupUi(QDialog *tbsui)
@@ -389,6 +391,27 @@ public:
         groupBox_2->setCheckable(false);
         gridLayout_3 = new QGridLayout(groupBox_2);
         gridLayout_3->setObjectName(QStringLiteral("gridLayout_3"));
+        lin_prate = new QLineEdit(groupBox_2);
+        lin_prate->setObjectName(QStringLiteral("lin_prate"));
+        lin_prate->setReadOnly(true);
+
+        gridLayout_3->addWidget(lin_prate, 12, 1, 1, 1);
+
+        label_7 = new QLabel(groupBox_2);
+        label_7->setObjectName(QStringLiteral("label_7"));
+
+        gridLayout_3->addWidget(label_7, 12, 0, 1, 1);
+
+        label_15 = new QLabel(groupBox_2);
+        label_15->setObjectName(QStringLiteral("label_15"));
+
+        gridLayout_3->addWidget(label_15, 7, 0, 1, 1);
+
+        lin_Sym = new QLineEdit(groupBox_2);
+        lin_Sym->setObjectName(QStringLiteral("lin_Sym"));
+
+        gridLayout_3->addWidget(lin_Sym, 11, 1, 1, 1);
+
         com_Protocol_1 = new QComboBox(groupBox_2);
         com_Protocol_1->addItem(QString());
         com_Protocol_1->addItem(QString());
@@ -406,33 +429,6 @@ public:
 
         gridLayout_3->addWidget(com_Modulation, 10, 1, 1, 1);
 
-        label_6 = new QLabel(groupBox_2);
-        label_6->setObjectName(QStringLiteral("label_6"));
-        sizePolicy1.setHeightForWidth(label_6->sizePolicy().hasHeightForWidth());
-        label_6->setSizePolicy(sizePolicy1);
-
-        gridLayout_3->addWidget(label_6, 11, 0, 1, 1);
-
-        lin_Sym = new QLineEdit(groupBox_2);
-        lin_Sym->setObjectName(QStringLiteral("lin_Sym"));
-
-        gridLayout_3->addWidget(lin_Sym, 11, 1, 1, 1);
-
-        lin_TSPort_1 = new QLineEdit(groupBox_2);
-        lin_TSPort_1->setObjectName(QStringLiteral("lin_TSPort_1"));
-
-        gridLayout_3->addWidget(lin_TSPort_1, 7, 2, 1, 1);
-
-        lin_TSPort_2 = new QLineEdit(groupBox_2);
-        lin_TSPort_2->setObjectName(QStringLiteral("lin_TSPort_2"));
-
-        gridLayout_3->addWidget(lin_TSPort_2, 7, 3, 1, 1);
-
-        label_17 = new QLabel(groupBox_2);
-        label_17->setObjectName(QStringLiteral("label_17"));
-
-        gridLayout_3->addWidget(label_17, 6, 0, 1, 1);
-
         label_5 = new QLabel(groupBox_2);
         label_5->setObjectName(QStringLiteral("label_5"));
         sizePolicy1.setHeightForWidth(label_5->sizePolicy().hasHeightForWidth());
@@ -440,10 +436,17 @@ public:
 
         gridLayout_3->addWidget(label_5, 10, 0, 1, 1);
 
-        lin_TSPort_3 = new QLineEdit(groupBox_2);
-        lin_TSPort_3->setObjectName(QStringLiteral("lin_TSPort_3"));
+        label_6 = new QLabel(groupBox_2);
+        label_6->setObjectName(QStringLiteral("label_6"));
+        sizePolicy1.setHeightForWidth(label_6->sizePolicy().hasHeightForWidth());
+        label_6->setSizePolicy(sizePolicy1);
 
-        gridLayout_3->addWidget(lin_TSPort_3, 7, 4, 1, 1);
+        gridLayout_3->addWidget(label_6, 11, 0, 1, 1);
+
+        label_17 = new QLabel(groupBox_2);
+        label_17->setObjectName(QStringLiteral("label_17"));
+
+        gridLayout_3->addWidget(label_17, 6, 0, 1, 1);
 
         label_9 = new QLabel(groupBox_2);
         label_9->setObjectName(QStringLiteral("label_9"));
@@ -452,27 +455,36 @@ public:
 
         gridLayout_3->addWidget(label_9, 1, 0, 1, 1);
 
-        lin_CastIP_3 = new QLineEdit(groupBox_2);
-        lin_CastIP_3->setObjectName(QStringLiteral("lin_CastIP_3"));
+        lin_TSPort_1 = new QLineEdit(groupBox_2);
+        lin_TSPort_1->setObjectName(QStringLiteral("lin_TSPort_1"));
 
-        gridLayout_3->addWidget(lin_CastIP_3, 6, 4, 1, 1);
+        gridLayout_3->addWidget(lin_TSPort_1, 7, 2, 1, 1);
+
+        lin_TSPort_3 = new QLineEdit(groupBox_2);
+        lin_TSPort_3->setObjectName(QStringLiteral("lin_TSPort_3"));
+
+        gridLayout_3->addWidget(lin_TSPort_3, 7, 4, 1, 1);
+
+        lin_TSPort_2 = new QLineEdit(groupBox_2);
+        lin_TSPort_2->setObjectName(QStringLiteral("lin_TSPort_2"));
+
+        gridLayout_3->addWidget(lin_TSPort_2, 7, 3, 1, 1);
+
+        lin_Lev_0 = new QLineEdit(groupBox_2);
+        lin_Lev_0->setObjectName(QStringLiteral("lin_Lev_0"));
+        lin_Lev_0->setClearButtonEnabled(false);
+
+        gridLayout_3->addWidget(lin_Lev_0, 2, 1, 1, 1);
 
         lin_Lev_1 = new QLineEdit(groupBox_2);
         lin_Lev_1->setObjectName(QStringLiteral("lin_Lev_1"));
 
         gridLayout_3->addWidget(lin_Lev_1, 2, 2, 1, 1);
 
-        label_15 = new QLabel(groupBox_2);
-        label_15->setObjectName(QStringLiteral("label_15"));
+        lin_TSPort_0 = new QLineEdit(groupBox_2);
+        lin_TSPort_0->setObjectName(QStringLiteral("lin_TSPort_0"));
 
-        gridLayout_3->addWidget(label_15, 7, 0, 1, 1);
-
-        com_Protocol_0 = new QComboBox(groupBox_2);
-        com_Protocol_0->addItem(QString());
-        com_Protocol_0->addItem(QString());
-        com_Protocol_0->setObjectName(QStringLiteral("com_Protocol_0"));
-
-        gridLayout_3->addWidget(com_Protocol_0, 8, 1, 1, 1);
+        gridLayout_3->addWidget(lin_TSPort_0, 7, 1, 1, 1);
 
         com_Protocol_2 = new QComboBox(groupBox_2);
         com_Protocol_2->addItem(QString());
@@ -481,17 +493,6 @@ public:
 
         gridLayout_3->addWidget(com_Protocol_2, 8, 3, 1, 1);
 
-        lin_Lev_0 = new QLineEdit(groupBox_2);
-        lin_Lev_0->setObjectName(QStringLiteral("lin_Lev_0"));
-        lin_Lev_0->setClearButtonEnabled(false);
-
-        gridLayout_3->addWidget(lin_Lev_0, 2, 1, 1, 1);
-
-        lin_TSPort_0 = new QLineEdit(groupBox_2);
-        lin_TSPort_0->setObjectName(QStringLiteral("lin_TSPort_0"));
-
-        gridLayout_3->addWidget(lin_TSPort_0, 7, 1, 1, 1);
-
         com_Protocol_3 = new QComboBox(groupBox_2);
         com_Protocol_3->addItem(QString());
         com_Protocol_3->addItem(QString());
@@ -499,52 +500,37 @@ public:
 
         gridLayout_3->addWidget(com_Protocol_3, 8, 4, 1, 1);
 
-        label_8 = new QLabel(groupBox_2);
-        label_8->setObjectName(QStringLiteral("label_8"));
-        sizePolicy1.setHeightForWidth(label_8->sizePolicy().hasHeightForWidth());
-        label_8->setSizePolicy(sizePolicy1);
+        lin_CastIP_3 = new QLineEdit(groupBox_2);
+        lin_CastIP_3->setObjectName(QStringLiteral("lin_CastIP_3"));
 
-        gridLayout_3->addWidget(label_8, 2, 0, 1, 1);
-
-        lin_Lev_2 = new QLineEdit(groupBox_2);
-        lin_Lev_2->setObjectName(QStringLiteral("lin_Lev_2"));
-
-        gridLayout_3->addWidget(lin_Lev_2, 2, 3, 1, 1);
-
-        che_sw_0 = new QCheckBox(groupBox_2);
-        che_sw_0->setObjectName(QStringLiteral("che_sw_0"));
-
-        gridLayout_3->addWidget(che_sw_0, 0, 1, 1, 1);
-
-        lin_CastIP_2 = new QLineEdit(groupBox_2);
-        lin_CastIP_2->setObjectName(QStringLiteral("lin_CastIP_2"));
-
-        gridLayout_3->addWidget(lin_CastIP_2, 6, 3, 1, 1);
+        gridLayout_3->addWidget(lin_CastIP_3, 6, 4, 1, 1);
 
         lin_CastIP_1 = new QLineEdit(groupBox_2);
         lin_CastIP_1->setObjectName(QStringLiteral("lin_CastIP_1"));
 
         gridLayout_3->addWidget(lin_CastIP_1, 6, 2, 1, 1);
 
-        lin_Lev_3 = new QLineEdit(groupBox_2);
-        lin_Lev_3->setObjectName(QStringLiteral("lin_Lev_3"));
+        che_sw_0 = new QCheckBox(groupBox_2);
+        che_sw_0->setObjectName(QStringLiteral("che_sw_0"));
 
-        gridLayout_3->addWidget(lin_Lev_3, 2, 4, 1, 1);
+        gridLayout_3->addWidget(che_sw_0, 0, 1, 1, 1);
 
-        che_sw_2 = new QCheckBox(groupBox_2);
-        che_sw_2->setObjectName(QStringLiteral("che_sw_2"));
+        lin_Lev_2 = new QLineEdit(groupBox_2);
+        lin_Lev_2->setObjectName(QStringLiteral("lin_Lev_2"));
 
-        gridLayout_3->addWidget(che_sw_2, 0, 3, 1, 1);
+        gridLayout_3->addWidget(lin_Lev_2, 2, 3, 1, 1);
 
-        lin_CastIP_0 = new QLineEdit(groupBox_2);
-        lin_CastIP_0->setObjectName(QStringLiteral("lin_CastIP_0"));
+        com_Protocol_0 = new QComboBox(groupBox_2);
+        com_Protocol_0->addItem(QString());
+        com_Protocol_0->addItem(QString());
+        com_Protocol_0->setObjectName(QStringLiteral("com_Protocol_0"));
 
-        gridLayout_3->addWidget(lin_CastIP_0, 6, 1, 1, 1);
+        gridLayout_3->addWidget(com_Protocol_0, 8, 1, 1, 1);
 
-        che_sw_3 = new QCheckBox(groupBox_2);
-        che_sw_3->setObjectName(QStringLiteral("che_sw_3"));
+        lin_CastIP_2 = new QLineEdit(groupBox_2);
+        lin_CastIP_2->setObjectName(QStringLiteral("lin_CastIP_2"));
 
-        gridLayout_3->addWidget(che_sw_3, 0, 4, 1, 1);
+        gridLayout_3->addWidget(lin_CastIP_2, 6, 3, 1, 1);
 
         label_16 = new QLabel(groupBox_2);
         label_16->setObjectName(QStringLiteral("label_16"));
@@ -553,38 +539,68 @@ public:
 
         gridLayout_3->addWidget(label_16, 8, 0, 1, 1);
 
+        label_8 = new QLabel(groupBox_2);
+        label_8->setObjectName(QStringLiteral("label_8"));
+        sizePolicy1.setHeightForWidth(label_8->sizePolicy().hasHeightForWidth());
+        label_8->setSizePolicy(sizePolicy1);
+
+        gridLayout_3->addWidget(label_8, 2, 0, 1, 1);
+
+        lin_CastIP_0 = new QLineEdit(groupBox_2);
+        lin_CastIP_0->setObjectName(QStringLiteral("lin_CastIP_0"));
+
+        gridLayout_3->addWidget(lin_CastIP_0, 6, 1, 1, 1);
+
+        lin_Lev_3 = new QLineEdit(groupBox_2);
+        lin_Lev_3->setObjectName(QStringLiteral("lin_Lev_3"));
+
+        gridLayout_3->addWidget(lin_Lev_3, 2, 4, 1, 1);
+
         che_sw_1 = new QCheckBox(groupBox_2);
         che_sw_1->setObjectName(QStringLiteral("che_sw_1"));
 
         gridLayout_3->addWidget(che_sw_1, 0, 2, 1, 1);
 
-        label_10 = new QLabel(groupBox_2);
-        label_10->setObjectName(QStringLiteral("label_10"));
+        lin_Fre_2 = new QLineEdit(groupBox_2);
+        lin_Fre_2->setObjectName(QStringLiteral("lin_Fre_2"));
+        lin_Fre_2->setReadOnly(true);
 
-        gridLayout_3->addWidget(label_10, 0, 0, 1, 1);
+        gridLayout_3->addWidget(lin_Fre_2, 1, 3, 1, 1);
 
-        che_Rst = new QCheckBox(groupBox_2);
-        che_Rst->setObjectName(QStringLiteral("che_Rst"));
+        che_sw_3 = new QCheckBox(groupBox_2);
+        che_sw_3->setObjectName(QStringLiteral("che_sw_3"));
 
-        gridLayout_3->addWidget(che_Rst, 12, 0, 1, 3);
+        gridLayout_3->addWidget(che_sw_3, 0, 4, 1, 1);
+
+        lin_Fre_1 = new QLineEdit(groupBox_2);
+        lin_Fre_1->setObjectName(QStringLiteral("lin_Fre_1"));
+        lin_Fre_1->setReadOnly(true);
+
+        gridLayout_3->addWidget(lin_Fre_1, 1, 2, 1, 1);
 
         lin_Fre_0 = new QLineEdit(groupBox_2);
         lin_Fre_0->setObjectName(QStringLiteral("lin_Fre_0"));
 
         gridLayout_3->addWidget(lin_Fre_0, 1, 1, 1, 1);
 
-        lin_Fre_1 = new QLineEdit(groupBox_2);
-        lin_Fre_1->setObjectName(QStringLiteral("lin_Fre_1"));
+        che_sw_2 = new QCheckBox(groupBox_2);
+        che_sw_2->setObjectName(QStringLiteral("che_sw_2"));
 
-        gridLayout_3->addWidget(lin_Fre_1, 1, 2, 1, 1);
+        gridLayout_3->addWidget(che_sw_2, 0, 3, 1, 1);
 
-        lin_Fre_2 = new QLineEdit(groupBox_2);
-        lin_Fre_2->setObjectName(QStringLiteral("lin_Fre_2"));
+        che_Rst = new QCheckBox(groupBox_2);
+        che_Rst->setObjectName(QStringLiteral("che_Rst"));
 
-        gridLayout_3->addWidget(lin_Fre_2, 1, 3, 1, 1);
+        gridLayout_3->addWidget(che_Rst, 13, 0, 1, 3);
+
+        label_10 = new QLabel(groupBox_2);
+        label_10->setObjectName(QStringLiteral("label_10"));
+
+        gridLayout_3->addWidget(label_10, 0, 0, 1, 1);
 
         lin_Fre_3 = new QLineEdit(groupBox_2);
         lin_Fre_3->setObjectName(QStringLiteral("lin_Fre_3"));
+        lin_Fre_3->setReadOnly(true);
 
         gridLayout_3->addWidget(lin_Fre_3, 1, 4, 1, 1);
 
@@ -647,6 +663,9 @@ public:
         che_t0->setText(QApplication::translate("tbsui", "Modulator 0", nullptr));
         che_t1->setText(QApplication::translate("tbsui", "Modulator 1", nullptr));
         groupBox_2->setTitle(QString());
+        label_7->setText(QApplication::translate("tbsui", "Playrate\357\274\210bps\357\274\211:", nullptr));
+        label_15->setText(QApplication::translate("tbsui", "TS Port:", nullptr));
+        lin_Sym->setText(QString());
         com_Protocol_1->setItemText(0, QApplication::translate("tbsui", "UDP", nullptr));
         com_Protocol_1->setItemText(1, QApplication::translate("tbsui", "RTP", nullptr));
 
@@ -656,33 +675,31 @@ public:
         com_Modulation->setItemText(3, QApplication::translate("tbsui", "128QAM", nullptr));
         com_Modulation->setItemText(4, QApplication::translate("tbsui", "256QAM", nullptr));
 
+        label_5->setText(QApplication::translate("tbsui", "Modulation:", nullptr));
         label_6->setText(QApplication::translate("tbsui", "Symbolrate (2000-7200\n"
 "kbps):", nullptr));
-        lin_Sym->setText(QString());
         label_17->setText(QApplication::translate("tbsui", "Multicast/unicast ip:", nullptr));
-        label_5->setText(QApplication::translate("tbsui", "Modulation:", nullptr));
         label_9->setText(QApplication::translate("tbsui", "Frequence (100~1000MHZ):", nullptr));
-        label_15->setText(QApplication::translate("tbsui", "TS Port:", nullptr));
-        com_Protocol_0->setItemText(0, QApplication::translate("tbsui", "UDP", nullptr));
-        com_Protocol_0->setItemText(1, QApplication::translate("tbsui", "RTP", nullptr));
-
+        lin_Lev_0->setText(QString());
+        lin_TSPort_0->setText(QString());
         com_Protocol_2->setItemText(0, QApplication::translate("tbsui", "UDP", nullptr));
         com_Protocol_2->setItemText(1, QApplication::translate("tbsui", "RTP", nullptr));
 
-        lin_Lev_0->setText(QString());
-        lin_TSPort_0->setText(QString());
         com_Protocol_3->setItemText(0, QApplication::translate("tbsui", "UDP", nullptr));
         com_Protocol_3->setItemText(1, QApplication::translate("tbsui", "RTP", nullptr));
 
-        label_8->setText(QApplication::translate("tbsui", "Level (-35~0dBm):", nullptr));
         che_sw_0->setText(QApplication::translate("tbsui", "Channel 0", nullptr));
-        che_sw_2->setText(QApplication::translate("tbsui", "Channel 2", nullptr));
-        lin_CastIP_0->setText(QString());
-        che_sw_3->setText(QApplication::translate("tbsui", "Channel 3", nullptr));
+        com_Protocol_0->setItemText(0, QApplication::translate("tbsui", "UDP", nullptr));
+        com_Protocol_0->setItemText(1, QApplication::translate("tbsui", "RTP", nullptr));
+
         label_16->setText(QApplication::translate("tbsui", "Net protocol:", nullptr));
+        label_8->setText(QApplication::translate("tbsui", "Gain (5~120):", nullptr));
+        lin_CastIP_0->setText(QString());
         che_sw_1->setText(QApplication::translate("tbsui", "Channel 1", nullptr));
-        label_10->setText(QApplication::translate("tbsui", "Channel switch:", nullptr));
+        che_sw_3->setText(QApplication::translate("tbsui", "Channel 3", nullptr));
+        che_sw_2->setText(QApplication::translate("tbsui", "Channel 2", nullptr));
         che_Rst->setText(QApplication::translate("tbsui", "DVBC sub-module software restart", nullptr));
+        label_10->setText(QApplication::translate("tbsui", "Channel switch:", nullptr));
         tw_Set->setTabText(tw_Set->indexOf(tab_KidSetting), QApplication::translate("tbsui", "Modulator", nullptr));
     } // retranslateUi
 

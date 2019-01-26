@@ -120,6 +120,7 @@ class RD_WT_PARM {
   int devno;
   int qam;
   int sym;
+	QString prate;
   QString fre[CHNO];
   QString lev[CHNO];
   QString mucastip[CHNO];

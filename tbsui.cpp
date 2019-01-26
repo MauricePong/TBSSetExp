@@ -236,7 +236,7 @@ void tbsui::initForm() {
   lintsport[0] = ui->lin_TSPort_0;
   lincastip[0] = ui->lin_CastIP_0;
   linfre[0] = ui->lin_Fre_0;
-  linlev[0] = ui->lin_Lev_0;
+	linlev[0] = ui->lin_Lev_0;
   comptl[0] = ui->com_Protocol_0;
   chesw[0] = ui->che_sw_0;
   lintsport[1] = ui->lin_TSPort_1;
@@ -530,13 +530,15 @@ void tbsui::soltsDisplayMsgUI(TBS_Msg_Type *msg) {
           lintsport[i]->setText(QString("%1").arg(tbsrwparm.tsport[i]));
           lincastip[i]->setText(tbsrwparm.mucastip[i]);
           linfre[i]->setText(tbsrwparm.fre[i]);
-          linlev[i]->setText(tbsrwparm.lev[i]);
+					linlev[i]->setText(tbsrwparm.lev[i]);
           comptl[i]->setCurrentIndex(tbsrwparm.protocol[i]);
           chesw[i]->setChecked(tbsrwparm.chesw[i]);
         }
         ui->lin_Sym->setText(QString("%1").arg(tbsrwparm.sym));
         ui->com_Modulation->setCurrentIndex(tbsrwparm.qam);
         ui->che_Rst->setChecked(tbsrwparm.softrst);
+				ui->lin_prate->setText(tbsrwparm.prate);
+
       } else {
         int index = ui->tw_Set->currentIndex();
 
@@ -558,6 +560,7 @@ void tbsui::soltsDisplayMsgUI(TBS_Msg_Type *msg) {
           ui->lin_Sym->setText(QString("%1").arg(tbsrwparm.sym));
           ui->com_Modulation->setCurrentIndex(tbsrwparm.qam);
           ui->che_Rst->setChecked(tbsrwparm.softrst);
+					ui->lin_prate->setText(tbsrwparm.prate);
         }
       }
     } else if ((0 == msg->isread) && (0 == msg->iserror)) {  // return write
@@ -590,6 +593,7 @@ void tbsui::soltsDisplayMsgUI(TBS_Msg_Type *msg) {
         ui->lin_Sym->setText(QString("%1").arg(tbsrwparm.sym));
         ui->com_Modulation->setCurrentIndex(tbsrwparm.qam);
         ui->che_Rst->setChecked(tbsrwparm.softrst);
+				ui->lin_prate->setText(tbsrwparm.prate);
 
       }
     } else if ((2 == msg->isread) && (1 == msg->iserror)) {

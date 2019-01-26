@@ -422,6 +422,9 @@ int TBShardware::readModulatorParm(void) {
     QString qlevl = QString("%1").arg(rfxdata[0x0b+0x20*j]);
     rwparm.lev[j] = qlevl;
     qDebug() << "read level:" << rwparm.lev[j] << "[" << j << "]";
+		rwparm.prate = QString("%1").arg(ntohl(*(u32 *)&rfxdata[0x0c]));
+		qDebug() << "read playreate:" << rwparm.prate << "[" << j << "]";
+
     rwparm.mucastip[j] = QString("%1.%2.%3.%4")
                              .arg(rfxdata[0x11 + 0x20 * j])
                              .arg(rfxdata[0x12 + 0x20 * j])
